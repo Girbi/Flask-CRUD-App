@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+<h1>{% block title %}Editeaza{% endblock %}</h1>
+
+{% block content %}
+<!-- Update Form -->
+<div class="mb-10"></div>
+<div class="bg-black text-white w-full mx-auto max-w-lg border rounded-lg">
+  <form action="/{{url}}/update/{{course.id_curs}}" method="POST"
+    class="bg-transparent flex gap-5 flex-col shadow-md rounded px-8 py-8 mb-0">
+
+    <div>
+      <label class="block text-sm font-bold mb-1" for="nume">
+        Nume
+      </label>
+      <input name="nume" required value={{course.nume}}
+        class="flex w-full rounded-lg border bg-black px-3 py-2 text-sm outline-0 transition-colors duration-500 ease-out focus-visible:ring-1 focus-visible:ring-white"
+        id="nume" placeholder="Nume">
+    </div>
+
+    <div>
+      <label class="block text-sm font-bold mb-1" for="durata">
+        Durata
+      </label>
+      <input name="durata" required inputmode="numeric" value={{course.durata}}
+        class="flex w-full rounded-lg border bg-black px-3 py-2 text-sm outline-0 transition-colors duration-500 ease-out focus-visible:ring-1 focus-visible:ring-white"
+        id="durata" placeholder="20 (zile)">
+    </div>
+
+    <div>
+      <label class="block text-sm font-bold mb-1" for="pret">
+        pret
+      </label>
+      <input name="pret" type="pret" required value={{course.pret}}
+        class="flex w-full rounded-lg border bg-black px-3 py-2 text-sm outline-0 transition-colors duration-500 ease-out focus-visible:ring-1 focus-visible:ring-white"
+        id="pret" placeholder="30 (€)">
+    </div>
+
+    <div class="flex gap-2 items-center">
+      <button
+        class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
+        type="submit">
+        Editeaza Curs
+      </button>
+      <a href='/{{url}}'
+        class="focus:outline-none text-base text-white bg-gray-800 hover:bg-gray-700 focus:ring-2 focus:ring-white font-medium rounded-lg py-2 px-4">
+        Cancel
+      </a>
+    </div>
+  </form>
+</div>
+
+
+{% endblock %}

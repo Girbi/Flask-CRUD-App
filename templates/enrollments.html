@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+<h1>{% block title %}Inscrieri{% endblock %}</h1>
+
+{% block content %}
+<div class="container rounded-lg mx-auto my-8 p-8 bg-black text-white">
+  <h1 class="text-2xl font-bold mb-6">Inscrieri</h1>
+
+  <!-- Table -->
+  <table class="min-w-full text-left text-sm text-white font-semibold">
+    <thead class="border-b font-medium dark:border-neutral-500">
+      <tr>
+        <th scope="col" class="px-6 py-4">Id_inscriere</th>
+        <th scope="col" class="px-6 py-4">Data_inscriere</th>
+        <th scope="col" class="px-6 py-4">Angajat</th>
+        <th scope="col" class="px-6 py-4">Curs</th>
+        <th scope="col" class="px-6 py-4">Stadiu</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for enrollment in enrollments %}
+      <tr
+        class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
+        <td class="whitespace-nowrap px-6 py-4 font-medium">{{enrollment.id_inscriere}}</td>
+        <td class="whitespace-nowrap px-6 py-4 font-medium">{{enrollment.data_inscriere}}</td>
+        <td class="whitespace-nowrap px-6 py-4">{{enrollment.nume + ' ' + enrollment.prenume}}</td>
+        <td class="whitespace-nowrap px-6 py-4">{{enrollment['curs.nume']}}</td>
+        <td class="whitespace-nowrap px-6 py-4">{{enrollment.stadiu}}</td>
+        <td>
+          <div class="flex justify-center gap-1">
+            <a href="/enrollments/update/{{enrollment.id_inscriere}}"
+              class="focus:outline-none text-base text-black bg-yellow-400 hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg px-3 py-2 dark:focus:ring-yellow-900">Edit</a>
+
+            <a href="/enrollments/delete/{{enrollment.id_inscriere}}"
+              class="focus:outline-none text-base text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg px-3 py-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</a>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Add Form -->
+  <div class="mb-10"></div>
+  <div class="w-full mx-auto max-w-lg border rounded-lg">
+
+    <form action="/enrollments/" method="POST"
+      class="bg-transparent flex gap-5 flex-col shadow-md rounded px-8 py-8 mb-0">
+      <h1 class="text-xl font-bold">Inscriere noua</h1>
+      <div>
+        <label class="block text-sm font-bold mb-1" for="employees">
+          Angajat
+        </label>
+        <select id="employees" name="employees"
+          class="bg-black text-white border border-gray-300 text-sm rounded-lg focus:border-white block w-full p-2.5">
+          {% for option in options["employee_options"] %}
+          <option value="{{ option.id }}">{{ option.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+
+        <label class="block text-sm font-bold mb-1" for="courses">
+          Curs
+        </label>
+        <select id="courses" name="courses"
+          class="bg-black text-white border border-gray-300 text-sm rounded-lg focus:border-white block w-full p-2.5">
+          {% for option in options["course_options"] %}
+          <option value="{{ option.id }}">{{ option.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-bold mb-1" for="state">
+          Stadiu
+        </label>
+        <select id="state" name="state"
+          class="bg-black text-white border border-gray-300 text-sm rounded-lg focus:border-white block w-full p-2.5">
+          {% for option in options["state_options"] %}
+          <option value="{{ option }}">{{ option }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <button
+        class="w-full mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
+        type="submit">
+        Adauga Inscriere
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}

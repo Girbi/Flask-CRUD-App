@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+<h1>{% block title %}Editeaza{% endblock %}</h1>
+
+{% block content %}
+
+<!-- Update Form -->
+<div class="mb-10"></div>
+<div class="bg-black text-white w-full mx-auto max-w-lg border rounded-lg">
+
+  <form action="/{{url}}/update/{{enrollment.id_inscriere}}" method="POST"
+    class="bg-transparent flex gap-5 flex-col shadow-md rounded px-8 py-8 mb-0">
+    <div>
+      <label class="block text-sm font-bold mb-1" for="employees">
+        Angajat
+      </label>
+      <select id="employees" name="employees"
+        class="bg-black text-white border border-gray-300 text-sm rounded-lg focus:border-white block w-full p-2.5">
+        {% for option in options["employee_options"] %}
+        <option {%if option.id==enrollment.id_angajat %} selected{%endif%} value="{{ option.id }}">{{ option.label }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+
+      <label class="block text-sm font-bold mb-1" for="courses">
+        Curs
+      </label>
+      <select id="courses" name="courses"
+        class="bg-black text-white border border-gray-300 text-sm rounded-lg focus:border-white block w-full p-2.5">
+        {% for option in options["course_options"] %}
+        <option {%if option.id==enrollment.id_curs %} selected{%endif%} value="{{ option.id }}">{{ option.label }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-sm font-bold mb-1" for="state">
+        Stadiu
+      </label>
+      <select id="state" name="state"
+        class="bg-black text-white border border-gray-300 text-sm rounded-lg focus:border-white block w-full p-2.5">
+        {% for option in options["state_options"] %}
+        <option {%if option.id==enrollment.stadiu %} selected {%endif%} value="{{ option }}">{{ option }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="flex gap-2 items-center">
+      <button
+        class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
+        type="submit">
+        Editeaza Inscriere
+      </button>
+      <a href='/{{url}}'
+        class="focus:outline-none text-base text-white bg-gray-800 hover:bg-gray-700 focus:ring-2 focus:ring-white font-medium rounded-lg py-2 px-4">
+        Cancel
+      </a>
+    </div>
+  </form>
+</div>
+{% endblock %}
